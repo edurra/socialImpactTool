@@ -20,9 +20,8 @@ class Twitter:
         ndays = self.ndays
         filename = self.filename
 
-        auth = tweepy.OAuthHandler("xxxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxx")
-        auth.set_access_token("xxxxxxxxxxxxxxxxxxxxx",
-                              "xxxxxxxxxxxxxxxxx")
+        auth = tweepy.OAuthHandler("RB2NH0OQ6C5PB0Wam8Y5niv2S", "PoWWT1gRuA0A38LcnLOSVKe2fqcWPWCfnTcGmcBoarn1Dv0yho")
+        auth.set_access_token("1054177114000367616-oHbEAjWeabBuXOLbEHMbuBwc628xjE", "3IwRN29VSxQY2JJwlzoFJfcMy3U2I9OwkFpVpgWj7QUmP")
 
         api = tweepy.API(auth, wait_on_rate_limit=True)
 
@@ -42,10 +41,10 @@ class Twitter:
             # queries tweets published on from_day
             query1 = word + " since:" + from_date_str + " until:" + to_date_str + " lang:en"
             # If we want to retrieve tweets with no urls
-            # query1 = query1+" -filter:links"
+            query1 = query1+" -filter:links"
 
             # If we want to filter retweets
-            # query1 = query1 + " -filter:retweets"
+            query1 = query1 + " -filter:retweets"
 
             id = 0
             for j in range(0, requests_per_day):
@@ -64,7 +63,7 @@ class Twitter:
                     print tweet.retweet_count
                     print tweet.created_at
                     print tweet.full_text.encode('utf-8').replace("\n", "")
-                    tweet_list = [tweet.retweet_count, from_date_str, tweet.full_text.encode('utf-8').replace("\n", "")]
+                    tweet_list = [word, tweet.id, tweet.favorite_count, tweet.retweet_count, from_date_str, tweet.full_text.encode('utf-8').replace("\n", "")]
 
                     writer.writerow(tweet_list)
 

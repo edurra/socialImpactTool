@@ -20,7 +20,7 @@ class News:
         ndays = self.ndays
         requests_per_day = self.requests_per_day
 
-        newsapi = NewsApiClient(api_key='xxxxxxxxxxxxxxxxxx')
+        newsapi = NewsApiClient(api_key='4bff28eb3f9f42e78adde64c2078642f')
         # /v2/top-headlines
 
         new_file = open(filename,
@@ -46,7 +46,7 @@ class News:
 
             #to do the first iteration
             total_results = page_size+1
-
+            counterTitle = 0
             for j in range (0, requests_per_day):
 
                 if (page <= math.ceil(total_results/page_size)):
@@ -57,6 +57,12 @@ class News:
                     print articles
                     for art in articles["articles"]:
                         news_list = []
+                        news_list.append(word)
+                        if (art["title"]):
+                            news_list.append(art["title"].encode('utf-8'))
+                        else:
+                            news_list.append(word+from_day_str+str(counterTitle))
+                            counterTitle +=1
                         news_list.append(from_date_str)
                         news_list.append(str(total_results))
                         if (art["source"]["name"]):
@@ -67,4 +73,5 @@ class News:
                             news_list.append(art["content"].encode('utf-8'))
                         else:
                             news_list.append("Null")
+
                         writer.writerow(news_list)

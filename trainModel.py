@@ -4,6 +4,7 @@ from pyspark.sql import SQLContext
 from pyspark.sql.types import *
 from pyspark.ml.feature import HashingTF, IDF, Tokenizer
 from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.classification import LogisticRegressionModel
 
 sc = SparkContext()
 
@@ -67,3 +68,4 @@ print TNR
 #0.75
 
 model.save('/user/maria_dev/sentimentModel')
+#m2 = LogisticRegressionModel.load('sentimentModel')
