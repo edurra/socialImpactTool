@@ -20,8 +20,8 @@ class Twitter:
         ndays = self.ndays
         filename = self.filename
 
-        auth = tweepy.OAuthHandler("RB2NH0OQ6C5PB0Wam8Y5niv2S", "PoWWT1gRuA0A38LcnLOSVKe2fqcWPWCfnTcGmcBoarn1Dv0yho")
-        auth.set_access_token("1054177114000367616-oHbEAjWeabBuXOLbEHMbuBwc628xjE", "3IwRN29VSxQY2JJwlzoFJfcMy3U2I9OwkFpVpgWj7QUmP")
+        auth = tweepy.OAuthHandler("x", "x")
+        auth.set_access_token("x", "x")
 
         api = tweepy.API(auth, wait_on_rate_limit=True)
 
