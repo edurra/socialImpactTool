@@ -1,8 +1,18 @@
 from tweetsRetriever import Twitter
 from newsRetriever import News
 import os
+import sys
+from datetime import datetime, timedelta
+import mysql.connector
+import uuid
+from trendsRetriever import Trends
 
-word = "Microsoft"
+
+word = sys.argv[1]
+
+if(len(sys.argv) > 2):
+	word = " ".join(sys.argv[1:len(sys.argv)])
+
 ndays = 7
 
 #twitter api params
@@ -15,14 +25,47 @@ news_request_per_day = 1
 page_size = 100
 new_file_news = "/home/maria_dev/tempNews.csv"
 
+#We save the search in the database
+now = datetime.now() 
+year = str(now.year)
+month = str(now.month)
+day = str(now.day)
+today = year+"-"+month+"-"+day
+
+cnx = mysql.connector.connect(user='csp554project', password='csp554', host='23.99.143.105', database='socialImpact')
+cursor = cnx.cursor()
+
+searchId = uuid.uuid4().int & (1<<31)-1
+
+add_search = ("INSERT INTO searches (searchId, word, date) VALUES (%s, %s, %s)")
+data_search = (searchId, word, today)
+
+cursor.execute(add_search, data_search)
+cnx.commit()
+
+
 twitter = Twitter(word = word, requests_per_day= twitter_requests_per_day, tweets_per_request= tweets_per_request, ndays=ndays, filename=new_file_twitter)
 news = News(word = word, page_size= page_size, filename = new_file_news, ndays = ndays, requests_per_day= news_request_per_day)
 
+print "Retrieving tweets..."
 twitter.createCSV()
-os.system('hadoop fs -ls copyFromLocal tempTweets.csv /user/maria_dev')
-os.system('spark-submit --master yarn --deploy-mode cluster XXXXXX.py')
+
+print "Sumbmitting Spark job..."
+os.system('hadoop fs -copyFromLocal /home/maria_dev/tempTweets.csv /user/maria_dev')
+os.system('spark-submit --master yarn --deploy-mode client --jars mysql-connector-java-8.0.13.jar tweetsProcessing.py '+str(searchId))
+
+print "Retrieving news..."
 news.createCSV()
-os.system('hadoop fs -ls copyFromLocal tempNews.csv /user/maria_dev')
-os.system('spark-submit --master yarn --deploy-mode cluster XXXXXX.py')
+
+print "Submitting Spark job..."
+os.system('hadoop fs -copyFromLocal /home/maria_dev/tempNews.csv /user/maria_dev')
+os.system('spark-submit --master yarn --deploy-mode client --jars mysql-connector-java-8.0.13.jar newsProcessing.py '+str(searchId))
 
 os.system('rm /home/maria_dev/tempTweets.csv')
+os.system('rm /home/maria_dev/tempNews.csv')
+os.system('hadoop fs -rm  /user/maria_dev/tempTweets.csv')
+os.system('hadoop fs -rm  /user/maria_dev/tempNews.csv')
+
+print ("Requesting trends...")
+trends = Trends(word = word, ndays = ndays, searchId =searchId)
+trends.requestTrends()
