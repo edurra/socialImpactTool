@@ -239,7 +239,7 @@ pos_neg_per_day_searchId = pos_neg_per_day.map(lambda line: [searchId,line[1], l
 fields = [StructField('searchId', IntegerType(), True),StructField('newsPosPercentage', DoubleType(), True), StructField('newsNegPercentage', DoubleType(), True), StructField('date', StringType(), True)]
 schema = StructType(fields)
 newsPosNegDf = sqlContext.createDataFrame(pos_neg_per_day_searchId , schema)
-newsPosNegDf.write.format('jdbc').options(url = 'jdbc:mysql://23.99.143.105:3306/socialImpact', driver='com.mysql.jdbc.Driver', dbtable='newsDaily', user='csp554project', password='csp554').mode('append').save()
+newsPosNegDf.write.format('jdbc').options(url = 'jdbc:mysqlx', driver='com.mysql.jdbc.Driver', dbtable='newsDaily', user='x', password='x').mode('append').save()
 
 #words in content
 
@@ -248,7 +248,7 @@ words_content_searchId_rdd = sc.parallelize(words_content_searchId)
 fields = [StructField('searchId', IntegerType(), True),StructField('word', StringType(), True), StructField('weight', DoubleType(), True)]
 schema = StructType(fields)
 words_content_searchId_df = sqlContext.createDataFrame(words_content_searchId_rdd , schema)
-words_content_searchId_df.write.format('jdbc').options(url = 'jdbc:mysql://23.99.143.105:3306/socialImpact', driver='com.mysql.jdbc.Driver', dbtable='wordsContents', user='csp554project', password='csp554').mode('append').save()
+words_content_searchId_df.write.format('jdbc').options(url = 'jdbc:mysqlx', driver='com.mysql.jdbc.Driver', dbtable='wordsContents', user='x', password='x').mode('append').save()
 
 #words in title
 words_title_searchId = words_ordered_title_percentage.map(lambda line: [searchId, line[1], line[0]]).take(10)
@@ -256,4 +256,4 @@ words_title_searchId_rdd = sc.parallelize(words_title_searchId)
 fields = [StructField('searchId', IntegerType(), True),StructField('word', StringType(), True), StructField('weight', DoubleType(), True)]
 schema = StructType(fields)
 words_title_searchId_df = sqlContext.createDataFrame(words_title_searchId_rdd , schema)
-words_title_searchId_df.write.format('jdbc').options(url = 'jdbc:mysql://23.99.143.105:3306/socialImpact', driver='com.mysql.jdbc.Driver', dbtable='wordsTitles', user='csp554project', password='csp554').mode('append').save()
+words_title_searchId_df.write.format('jdbc').options(url = 'jdbc:mysql://x', driver='com.mysql.jdbc.Driver', dbtable='wordsTitles', user='x', password='x').mode('append').save()
