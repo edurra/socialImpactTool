@@ -16,12 +16,12 @@ if(len(sys.argv) > 2):
 ndays = 7
 
 #twitter api params
-twitter_requests_per_day = 1
+twitter_requests_per_day = 20
 tweets_per_request = 100
 new_file_twitter = "/home/maria_dev/tempTweets.csv"
 
 #news api params
-news_request_per_day = 1
+news_request_per_day = 10
 page_size = 100
 new_file_news = "/home/maria_dev/tempNews.csv"
 
@@ -42,6 +42,7 @@ data_search = (searchId, word, today)
 
 cursor.execute(add_search, data_search)
 cnx.commit()
+cnx.close()
 
 
 twitter = Twitter(word = word, requests_per_day= twitter_requests_per_day, tweets_per_request= tweets_per_request, ndays=ndays, filename=new_file_twitter)
@@ -66,6 +67,6 @@ os.system('rm /home/maria_dev/tempNews.csv')
 os.system('hadoop fs -rm  /user/maria_dev/tempTweets.csv')
 os.system('hadoop fs -rm  /user/maria_dev/tempNews.csv')
 
-print ("Requesting trends...")
+print ("Retrieving trends...")
 trends = Trends(word = word, ndays = ndays, searchId =searchId)
 trends.requestTrends()

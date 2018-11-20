@@ -51,6 +51,7 @@ class Trends:
                 data_query = (searchId, query, weight)
                 cursor.execute(add_query, data_query)
                 cnx.commit()
+                cnx.close()
             counter+=1
 
 
@@ -66,4 +67,5 @@ class Trends:
             data_query = (searchId, day, weight)
             cursor.execute(add_query, data_query)
             cnx.commit()
+            cnx.close()
             

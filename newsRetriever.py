@@ -20,7 +20,7 @@ class News:
         ndays = self.ndays
         requests_per_day = self.requests_per_day
 
-        newsapi = NewsApiClient(api_key='xxx')
+        newsapi = NewsApiClient(api_key='x')
         # /v2/top-headlines
 
         new_file = open(filename,
@@ -50,28 +50,20 @@ class News:
             for j in range (0, requests_per_day):
 
                 if (page <= math.ceil(total_results/page_size)):
-                    articles = newsapi.get_everything(q=word, language='en', page_size=page_size, from_param=from_date_str,
-                                                      to=from_date_str, page=page)
+                    articles = newsapi.get_everything(q=word, language='en', page_size=page_size, from_param=from_date_str, to=from_date_str, page=page)
                     total_results = articles["totalResults"]
                     page+=1
-                    print articles
+                    #print articles
                     for art in articles["articles"]:
                         news_list = []
-                        news_list.append(word)
-                        if (art["title"]):
-                            news_list.append(art["title"].encode('utf-8'))
-                        else:
-                            news_list.append(word+from_day_str+str(counterTitle))
-                            counterTitle +=1
-                        news_list.append(from_date_str)
-                        news_list.append(str(total_results))
-                        if (art["source"]["name"]):
+                        
+                        if(art["title"] and art["source"]["name"] and art["content"]):
+                            news_list.append(word)
+                            news_list.append(art["title"].encode('utf-8').replace("\n", ' ').replace("\r",' '))
+                            news_list.append(from_date_str)
+                            news_list.append(str(total_results))
                             news_list.append(art["source"]["name"])
-                        else:
-                            news_list.append("Null")
-                        if (art["content"]):
-                            news_list.append(art["content"].encode('utf-8'))
-                        else:
-                            news_list.append("Null")
+                            news_list.append(art["content"].encode('utf-8').replace("\n", ' ').replace("\r",' '))
+                            writer.writerow(news_list)
 
-                        writer.writerow(news_list)
+                       

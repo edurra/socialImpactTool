@@ -56,13 +56,13 @@ class Twitter:
 
                 tweets = api.search(q=query, count=tweets_per_request, tweet_mode='extended')
                 for tweet in tweets:
-                    print query
+                    #print query
 
                     id = tweet.id
 
-                    print tweet.retweet_count
-                    print tweet.created_at
-                    print tweet.full_text.encode('utf-8').replace("\n", "")
+                    #print tweet.retweet_count
+                    #print tweet.created_at
+                    #print tweet.full_text.encode('utf-8').replace("\n", "")
                     tweet_list = [word, tweet.id, tweet.favorite_count, tweet.retweet_count, from_date_str, tweet.full_text.encode('utf-8').replace("\n", "")]
 
                     writer.writerow(tweet_list)
