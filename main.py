@@ -32,7 +32,7 @@ month = str(now.month)
 day = str(now.day)
 today = year+"-"+month+"-"+day
 
-cnx = mysql.connector.connect(user='x', password='x', host='x', database='x')
+cnx = mysql.connector.connect(user='xxx', password='xxx', host='xxx', database='xxx')
 cursor = cnx.cursor()
 
 searchId = uuid.uuid4().int & (1<<31)-1

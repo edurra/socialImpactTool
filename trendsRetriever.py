@@ -45,7 +45,7 @@ class Trends:
             if(counter<10):
                 query = i[0].encode('utf-8')
                 weight = int(i[1])
-                cnx = mysql.connector.connect(user='x', password='x', host='x', database='x')
+                cnx = mysql.connector.connect(user='xxx', password='xxx', host='xxx', database='xxx')
                 cursor = cnx.cursor()
                 add_query = ("INSERT INTO trendsRelatedQueries (searchId, query, weight) VALUES (%s, %s, %s)")
                 data_query = (searchId, query, weight)
@@ -61,7 +61,7 @@ class Trends:
             day = str(i).split(" ")[0]
             weight = int(interest.loc[i][0])
             
-            cnx = mysql.connector.connect(user='x', password='x', host='x', database='x')
+            cnx = mysql.connector.connect(user='xxx', password='xxx', host='xxx', database='xxx')
             cursor = cnx.cursor()
             add_query = ("INSERT INTO trendsInterest (searchId, date, weight) VALUES (%s, %s, %s)")
             data_query = (searchId, day, weight)

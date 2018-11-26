@@ -20,7 +20,7 @@ class News:
         ndays = self.ndays
         requests_per_day = self.requests_per_day
 
-        newsapi = NewsApiClient(api_key='x')
+        newsapi = NewsApiClient(api_key='xxx')
         # /v2/top-headlines
 
         new_file = open(filename,
