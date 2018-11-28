@@ -68,31 +68,7 @@ predictions_groupBy_date_iterable = date_prediction.groupByKey()
 predictions_groupBy_date = predictions_groupBy_date_iterable.map(lambda line: [line[0], list(line[1])])
 #Percentage of positive/negative tweets per day:
 pos_neg_per_day = predictions_groupBy_date.map(lambda line: [line[0], sum(line[1])/4.0/float(len(line[1]))*100, (1.0-sum(line[1])/4.0/float(len(line[1])))*100])
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
+
 print("Per day results: ")
 print(pos_neg_per_day.take(7))
 
@@ -118,32 +94,6 @@ favs_n = negative_tweets.map(lambda line: [line[4], line[3]])
 favs_per_day_iterable_n = favs_n.groupByKey()
 favs_per_day_n = favs_per_day_iterable_n.map(lambda line: [line[0], list(line[1])])
 avg_favs_per_day_negative = favs_per_day_n.map(lambda line: [line[0], float(sum(line[1]))/len(line[1])])
-
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
 
 print avg_retweets_per_day_positive.take(10)
 print avg_retweets_per_day_negative.take(10)
@@ -178,28 +128,6 @@ words_ordered = words_count_first.sortByKey(False)
 reference = float(words_ordered.map(lambda line: line[0]).take(1)[0])
 words_ordered_percentage = words_ordered.map(lambda line: [float(line[0])/reference*100.0, line[1]])
 
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
 print words_ordered_percentage.take(15)
 
 #twitterDaily table

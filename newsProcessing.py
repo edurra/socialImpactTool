@@ -73,17 +73,7 @@ negative_sources_1 = news_sources_prediction.map(lambda line: [[x for x in line[
 negative_sources = sc.parallelize(negative_sources_1.map(lambda line: [len(line[0]), line[1]]).sortByKey(False).take(5))
 
 positive_sources = sc.parallelize(news_sources_prediction.map(lambda line: [float(sum(line[1])), line[0]]).sortByKey(False).take(5))
-print "A"
-print "A"
-print "A"
-print "A"
-print "A"
-print "A"
-print "A"
-print "A"
-print "A"
-print "A"
-print "A"
+
 print positive_sources.take(5)
 print negative_sources.take(5)
 
@@ -94,31 +84,7 @@ news_with_prediction_per_day = news_with_prediction_per_day_iterable.map(lambda 
 
 #Percentage of positive/negative news per day:
 pos_neg_per_day = news_with_prediction_per_day.map(lambda line: [line[0], sum(line[1])/4.0/float(len(line[1]))*100, (1.0-sum(line[1])/4.0/float(len(line[1])))*100])
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
-print "1"
+
 print("Per day results: ")
 print(pos_neg_per_day.take(7))
 
@@ -126,31 +92,7 @@ print(pos_neg_per_day.take(7))
 number_of_news = news_with_prediction.count()
 number_of_positive_news = float(news_with_prediction.filter(lambda line: line[1] == 4.0).count())/float(number_of_news)*100.0
 number_of_negative_news = float(news_with_prediction.filter(lambda line: line[1] == 0).count())/float(number_of_news)*100.0
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
-print "2"
+
 print("Total results")
 print("Positive news " + str(number_of_positive_news) + " %")
 print("Negative news " + str(number_of_negative_news) + " %")
@@ -183,28 +125,7 @@ words_count_first_t = count_words_t.map(lambda line: [line[1], line[0]])
 words_ordered_title = words_count_first_t.sortByKey(False)
 reference = float(words_ordered_title.map(lambda line: line[0]).take(1)[0])
 words_ordered_title_percentage = words_ordered_title.map(lambda line: [float(line[0])/reference*100.0, line[1]])
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
-print "3"
+
 print words_ordered_title_percentage.take(15)
 
 # CONTENT
@@ -236,25 +157,6 @@ words_ordered_content = words_count_first_c.sortByKey(False)
 reference2 = float(words_ordered_content.map(lambda line: line[0]).take(1)[0])
 words_ordered_content_percentage = words_ordered_content.map(lambda line: [float(line[0])/reference2*100.0, line[1]])
 
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
-print "4"
 print words_ordered_content_percentage.take(15)
 
 #Number of news per day
